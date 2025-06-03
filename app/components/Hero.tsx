@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="mt-[5%]">
+    <section className="container mt-[5%]">
       <div className="flex flex-col items-center w-full mx-auto text-center bg-gradient-to-b from-white via-blue-100 to-pink-50 py-16 px-4">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
@@ -68,6 +68,7 @@ export default function Hero() {
             Pricing
           </Link>
         </motion.div>
+
       </div>
     </section>
   );
