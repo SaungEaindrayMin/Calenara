@@ -30,6 +30,6 @@
     "app/components/Header.tsx",
     "app/page.tsx",
     "app/layout.tsx"
-  ],
+, "app/components/DashboardLink.jsx"  ],
   "exclude": ["node_modules"]
 }

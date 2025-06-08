@@ -11,3 +11,9 @@
   margin: auto;
   padding: 2rem;
 }
+
+
+
+html {
+  transition: background 0.3s, color 0.3s;
+}
