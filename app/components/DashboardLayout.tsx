@@ -16,6 +16,10 @@ import {
 import { Button } from "./ui/button";
 import { signOut } from "../lib/auth";
 import { LogoutButton } from "./LogoutButton";
+import prisma from "../lib/db";
+import { redirect } from "next/navigation";
+
+
 
 export default function DashboardLayout({
   children,
