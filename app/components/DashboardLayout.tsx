@@ -33,7 +33,7 @@ export default function DashboardLayout({
   return (
     <div className="min-h-screen w-full grid md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       {/* Desktop sidebar */}
-      <aside className="hidden md:block border-r border-pink-300 bg-pink-100">
+      <aside className="hidden md:block border-r border-pink-300 bg-pink-50">
         <SidebarContent />
       </aside>
 
@@ -46,7 +46,7 @@ export default function DashboardLayout({
       )}
 
       <aside
-        className={`fixed inset-y-0 left-0 z-40 w-64 transform transition-transform duration-300 bg-pink-100 border-r border-pink-300 md:hidden ${
+        className={`fixed inset-y-0 left-0 z-40 w-64 transform transition-transform duration-300 bg-pink-50 border-r border-pink-300 md:hidden ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -71,7 +71,7 @@ export default function DashboardLayout({
 
       {/* Main content layout */}
       <div className="flex flex-col">
-        <header className="w-full h-14 flex items-center justify-between border-b border-pink-300 px-5 lg:h-[60px] lg:px-6 bg-pink-100">
+        <header className="w-full h-14 flex items-center justify-between border-b border-pink-300 px-5 lg:h-[60px] lg:px-6 bg-pink-50">
           <Button
             onClick={() => setSidebarOpen(true)}
             className="md:hidden p-2 text-pink-600"

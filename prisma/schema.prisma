@@ -22,6 +22,8 @@ model User {
   grantEmail    String?
   accounts      Account[]
   sessions      Session[]
+  Availability  Availability[]
+  EventType     EventType[]
 
  
   createdAt DateTime @default(now())
@@ -66,4 +68,47 @@ model VerificationToken {
  
   @@id([identifier, token])
 }
+
+model Availability {
+  id String @id @default(uuid())
+
+  day      Day
+  fromTime String 
+  tillTime String 
+  isActive Boolean @default(true) 
+
+  User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Day {
+  Monday
+  Tuesday
+  Wednesday
+  Thursday
+  Friday
+  Saturday
+  Sunday
+}
+
+model EventType {
+  id                String  @id @default(uuid())
+  title             String
+  duration          Int
+  url               String
+  description       String
+  active            Boolean @default(true)
+  videoCallSoftware String  @default("Google Meet")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  createdAt DateTime @default(now())
+}
+
+
+
+
  

@@ -29,7 +29,7 @@ export const dashboardLinks: iAppProps[] = [
   {
     id: 2,
     name: "Available Times",
-    href: "/Dashboard/availableTimes",
+    href: "/Dashboard/AvailableTimes",
     icon: <CalendarIcon className="w-5 h-5" />,
   },
   {
