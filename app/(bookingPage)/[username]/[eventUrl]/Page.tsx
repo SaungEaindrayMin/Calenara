@@ -1,19 +1,15 @@
+import { Calendar } from "@/app/components/BookingForm/Calendar";
 import { RenderCalendar } from "@/app/components/BookingForm/RenderCalendar";
-import { SubmitButton } from "@/app/components/SubmitBtn";
+import { TimeTable } from "@/app/components/BookingForm/TimeTable";
 import { Card, CardContent } from "@/app/components/ui/card";
-import { Input } from "@/app/components/ui/input";
-import { Label } from "@/app/components/ui/label";
-import { Separator } from "@/app/components/ui/separator";
 import prisma from "@/app/lib/db";
-import { BookMarked, CalendarX2, Clock } from "lucide-react";
-import Image from "next/image";
+import { CalendarX2, Clock, VideoIcon } from "lucide-react";
 import { notFound } from "next/navigation";
-import React from "react";
 
-async function getData(userName: string, eventName: string) {
-  const eventType = await prisma.eventType.findFirst({
+async function getData(eventUrl: string, userName: string) {
+  const data = await prisma.eventType.findFirst({
     where: {
-      url: eventName,
+      url: eventUrl,
       user: {
         userName: userName,
       },
@@ -25,11 +21,10 @@ async function getData(userName: string, eventName: string) {
       title: true,
       duration: true,
       videoCallSoftware: true,
-
       user: {
         select: {
-          image: true,
           name: true,
+          image: true,
           Availability: {
             select: {
               day: true,
@@ -41,24 +36,24 @@ async function getData(userName: string, eventName: string) {
     },
   });
 
-  if (!eventType) {
+  if (!data) {
     return notFound();
   }
 
-  return eventType;
+  return data;
 }
 
-const BookingPage = async ({
+export default async function BookingFormRoute({
   params,
   searchParams,
 }: {
-  params: { username: string; eventName: string };
-  searchParams: { date?: string; time?: string };
-}) => {
+  params: { userName: string; eventUrl: string };
+  searchParams: { date?: string };
+}) {
+  const data = await getData(params.eventUrl, params.userName);
   const selectedDate = searchParams.date
     ? new Date(searchParams.date)
     : new Date();
-  const eventType = await getData(params.username, params.eventName);
 
   const formattedDate = new Intl.DateTimeFormat("en-US", {
     weekday: "long",
@@ -66,146 +61,59 @@ const BookingPage = async ({
     month: "long",
   }).format(selectedDate);
 
-  const showForm = !!searchParams.date && !!searchParams.time;
-
   return (
-    <div className="min-h-screen w-screen flex items-center justify-center">
-      {showForm ? (
-        <Card className="max-w-[600px]">
-          <CardContent className="p-5 grid md:grid-cols-[1fr,auto,1fr] gap-4">
+    <div className="min-h-screen w-screen flex items-center justify-center bg-gradient-to-br from-[#FADADD] to-[#D6EAF8] p-6">
+      <Card className="w-full max-w-7xl bg-white border border-[#FADADD] shadow-xl rounded-3xl">
+        <CardContent className="p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 items-start">
+          <div className="flex flex-col justify-between space-y-6">
             <div>
-              <Image
-                src={eventType.user.image as string}
-                alt={`${eventType.user.name}'s profile picture`}
-                className="size-9 rounded-full"
-                width={30}
-                height={30}
-              />
-              <p className="text-sm font-medium text-muted-foreground mt-1">
-                {eventType.user.name}
-              </p>
-              <h1 className="text-xl font-semibold mt-2">{eventType.title}</h1>
-              <p className="text-sm font-medium text-muted-foreground">
-                {eventType.description}
-              </p>
-
-              <div className="mt-5 grid gap-y-3">
-                <p className="flex items-center">
-                  <CalendarX2 className="size-4 mr-2 text-primary" />
-                  <span className="text-sm font-medium text-muted-foreground">
-                    {formattedDate}
-                  </span>
-                </p>
-                <p className="flex items-center">
-                  <Clock className="size-4 mr-2 text-primary" />
-                  <span className="text-sm font-medium text-muted-foreground">
-                    {eventType.duration} Mins
-                  </span>
-                </p>
-                <p className="flex items-center">
-                  <BookMarked className="size-4 mr-2 text-primary" />
-                  <span className="text-sm font-medium text-muted-foreground">
-                    {eventType.videoCallSoftware}
-                  </span>
-                </p>
+              <div className="flex items-center gap-4">
+                <img
+                  src={data.user.image as string}
+                  alt="Profile"
+                  className="w-14 h-14 rounded-full border-2 border-[#D6EAF8] shadow-sm"
+                />
+                <div>
+                  <p className="text-sm text-gray-500">Hosted by</p>
+                  <h2 className="text-lg font-semibold text-[#D6336C]">
+                    {data.user.name}
+                  </h2>
+                </div>
               </div>
-            </div>
-            <Separator
-              orientation="vertical"
-              className="hidden md:block h-full w-[1px]"
-            />
-
-            <form
-              className="flex flex-col gap-y-4"
-              // action={createMeetingAction}
-            >
-              <input type="hidden" name="eventTypeId" value={eventType.id} />
-              <input type="hidden" name="username" value={params.username} />
-              <input type="hidden" name="fromTime" value={searchParams.time} />
-              <input type="hidden" name="eventDate" value={searchParams.date} />
-              <input
-                type="hidden"
-                name="meetingLength"
-                value={eventType.duration}
-              />
-              <div className="flex flex-col gap-y-1">
-                <Label>Your Name</Label>
-                <Input name="name" placeholder="Your Name" />
-              </div>
-
-              <div className="flex flex-col gap-y-1">
-                <Label>Your Email</Label>
-                <Input name="email" placeholder="johndoe@gmail.com" />
-              </div>
-
-              <SubmitButton text="Book Meeting" />
-            </form>
-          </CardContent>
-        </Card>
-      ) : (
-        <Card className="w-full max-w-[1000px] mx-auto">
-          <CardContent className="p-5 md:grid md:grid-cols-[1fr,auto,1fr,auto,1fr] md:gap-4">
-            <div>
-              <Image
-                src={eventType.user.image as string}
-                alt={`${eventType.user.name}'s profile picture`}
-                className="size-9 rounded-full"
-                width={30}
-                height={30}
-              />
-              <p className="text-sm font-medium text-muted-foreground mt-1">
-                {eventType.user.name}
-              </p>
-              <h1 className="text-xl font-semibold mt-2">{eventType.title}</h1>
-              <p className="text-sm font-medium text-muted-foreground">
-                {eventType.description}
-              </p>
-              <div className="mt-5 grid gap-y-3">
-                <p className="flex items-center">
-                  <CalendarX2 className="size-4 mr-2 text-primary" />
-                  <span className="text-sm font-medium text-muted-foreground">
-                    {formattedDate}
-                  </span>
-                </p>
-                <p className="flex items-center">
-                  <Clock className="size-4 mr-2 text-primary" />
-                  <span className="text-sm font-medium text-muted-foreground">
-                    {eventType.duration} Mins
-                  </span>
-                </p>
-                <p className="flex items-center">
-                  <BookMarked className="size-4 mr-2 text-primary" />
-                  <span className="text-sm font-medium text-muted-foreground">
-                    Google Meet
-                  </span>
-                </p>
+              <div className="mt-6">
+                <h1 className="text-2xl font-bold ">{data.title}</h1>
+                <p className="mt-2 text-gray-700">{data.description}</p>
               </div>
             </div>
 
-            <Separator
-              orientation="vertical"
-              className="hidden md:block h-full w-[1px]"
-            />
-
-            <div className="my-4 md:my-0">
-              <RenderCalendar daysofWeek={eventType.user.Availability} />
+            <div className="space-y-3">
+              <div className="flex items-center text-gray-500">
+                <CalendarX2 className="mr-2 text-[#D6336C]" />
+                <span className="text-sm">{formattedDate}</span>
+              </div>
+              <div className="flex items-center text-gray-500">
+                <Clock className="mr-2 text-[#D6336C]" />
+                <span className="text-sm">{data.duration} Minutes</span>
+              </div>
+              <div className="flex items-center text-gray-500">
+                <VideoIcon className="mr-2 text-[#D6336C]" />
+                <span className="text-sm">{data.videoCallSoftware}</span>
+              </div>
             </div>
+          </div>
+          <div>
+            <RenderCalendar daysofWeek={data.user.Availability} />
+          </div>
 
-            <Separator
-              orientation="vertical"
-              className="hidden md:block h-full w-[1px]"
-            />
-
-            {/* <TimeSlots
+          <div>
+            <TimeTable
               selectedDate={selectedDate}
-              userName={params.username}
-              meetingDuration={eventType.duration}
-            /> */}
-          </CardContent>
-        </Card>
-      )}
+              userName={params.userName}
+              meetingDuration={data.duration}
+            />
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
-};
-
-export default BookingPage;
+}

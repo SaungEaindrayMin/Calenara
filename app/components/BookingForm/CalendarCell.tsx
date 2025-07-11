@@ -49,9 +49,9 @@ export function CalendarCell({
             "size-full rounded-sm flex items-center justify-center text-sm font-semibold",
             finalIsDisabled ? "text-muted-foreground cursor-not-allowed" : "",
             isFocusVisible ? "group-focus:z-2 ring-gray-12 ring-offset-1" : "",
-            isSelected ? "bg-primary text-white" : "",
+            isSelected ? "bg-blue-100 text-black" : "",
             !isSelected && !finalIsDisabled
-              ? "hover:bg-blue-500/10 bg-secondary"
+              ? "hover:bg-blue-500/10 bg-white text-gray-900 transition-colors duration-200"
               : ""
           )}
         >

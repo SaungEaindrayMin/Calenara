@@ -35,7 +35,7 @@ export const dashboardLinks: iAppProps[] = [
   {
     id: 3,
     name: "Calenara Settings",
-    href: "/Dashboard/settings",
+    href: "/Dashboard/Settings",
     icon: <Cog6ToothIcon className="w-5 h-5" />,
   },
 ];
