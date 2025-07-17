@@ -8,9 +8,11 @@ import { FaCalendarDays } from "react-icons/fa6";
 export function SignupModal({
   isOpen,
   onClose,
+  callbackUrl = "/dashboard",
 }: {
   isOpen: boolean;
   onClose: () => void;
+  callbackUrl?: string;
 }) {
   return (
     <AnimatePresence>
@@ -49,8 +51,8 @@ export function SignupModal({
 
               {/* Auth Buttons */}
               <div className="space-y-3">
-                <GoogleBtn action={() => signIn("google")} />
-                <GithubBtn action={() => signIn("github")} />
+                <GoogleBtn action={() => signIn("google", { callbackUrl })} />
+                <GithubBtn action={() => signIn("github", { callbackUrl })} />
               </div>
 
               {/* Optional close button */}

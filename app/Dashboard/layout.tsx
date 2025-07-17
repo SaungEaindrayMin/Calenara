@@ -1,8 +1,10 @@
-import DashboardLayout from "../components/DashboardLayout";
 import { auth } from "../lib/auth";
 import { ReactNode } from "react";
 import { redirect } from "next/navigation";
 import prisma from "../lib/db";
+import DashboardLayout from "../components/DashboardLayout";
+import PlanRequired from "../components/PlanRequired";
+
 
 export default async function Layout({ children }: { children: ReactNode }) {
   const session = await auth();
@@ -13,6 +15,12 @@ export default async function Layout({ children }: { children: ReactNode }) {
 
   const data = await getData(session.user.id as string);
 
+  // Check if user has a paid plan (PRO or PLUS)
+  if (!data.plan || data.plan.type === "FREE") {
+    // Instead of redirecting, show the PlanRequired component
+    return <PlanRequired />;
+  }
+
   return <DashboardLayout session={session}>{children}</DashboardLayout>;
 }
 
@@ -22,6 +30,7 @@ async function getData(id: string) {
     select: {
       userName: true,
       grantId: true,
+      plan: true,
     },
   });
 

@@ -70,9 +70,9 @@ function calculateAvailableTimeSlots(
   date: string,
   duration: number
 ) {
-  const now = new Date(); // Get the current time
+  const now = new Date(); 
 
-  // Convert DB availability to Date objects
+
   const availableFrom = parse(
     `${date} ${dbAvailability.fromTime}`,
     "yyyy-MM-dd HH:mm",
@@ -84,13 +84,12 @@ function calculateAvailableTimeSlots(
     new Date()
   );
 
-  // Extract busy slots from Nylas data
   const busySlots = nylasData.data[0].timeSlots.map((slot: any) => ({
     start: fromUnixTime(slot.startTime),
     end: fromUnixTime(slot.endTime),
   }));
 
-  // Generate all possible 30-minute slots within the available time
+
   const allSlots = [];
   let currentSlot = availableFrom;
   while (isBefore(currentSlot, availableTill)) {
@@ -98,11 +97,11 @@ function calculateAvailableTimeSlots(
     currentSlot = addMinutes(currentSlot, duration);
   }
 
-  // Filter out busy slots and slots before the current time
+ 
   const freeSlots = allSlots.filter((slot) => {
     const slotEnd = addMinutes(slot, duration);
     return (
-      isAfter(slot, now) && // Ensure the slot is after the current time
+      isAfter(slot, now) &&
       !busySlots.some(
         (busy: { start: any; end: any }) =>
           (!isBefore(slot, busy.start) && isBefore(slot, busy.end)) ||
@@ -112,7 +111,7 @@ function calculateAvailableTimeSlots(
     );
   });
 
-  // Format the free slots
+
   return freeSlots.map((slot) => format(slot, "HH:mm"));
 }
 

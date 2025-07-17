@@ -9,6 +9,7 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+
 // model === table
 
 model User {
@@ -17,17 +18,38 @@ model User {
   email         String          @unique
   emailVerified DateTime?
   image         String?
-  userName      String? @unique
+  userName      String?         @unique
   grantId       String?
   grantEmail    String?
   accounts      Account[]
   sessions      Session[]
   Availability  Availability[]
   EventType     EventType[]
+  planId        String?         // New field to link to a plan
+  plan          Plan?           @relation(fields: [planId], references: [id])
+  
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+}
 
- 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+// New Plan model
+enum PlanType {
+  FREE
+  PRO
+  PLUS
+}
+
+model Plan {
+  id          String    @id @default(cuid())
+  name        String
+  description String
+  price       Float
+  type        PlanType  @default(FREE)
+  features    String[]  // Array of features included in this plan
+  users       User[]
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
  
 model Account {
