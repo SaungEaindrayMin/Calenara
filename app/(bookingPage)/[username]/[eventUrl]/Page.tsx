@@ -35,6 +35,7 @@ async function getData(eventUrl: string, userName: string) {
       },
     },
   });
+  
 
   if (!data) {
     return notFound();
