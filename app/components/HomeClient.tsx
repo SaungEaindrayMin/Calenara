@@ -15,7 +15,7 @@ export default function HomeClient() {
       <Header onOpenModal={() => setIsModalOpen(true)} />
       <Hero />
       <Footer />
-      <SignupModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} callbackUrl="/dashboard" />
+      <SignupModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} callbackUrl="/Dashboard" />
     </div>
   );
 }

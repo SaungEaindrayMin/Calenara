@@ -9,7 +9,7 @@ export default function Footer() {
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="bg-white border-t border-gray-200 py-3 px-6"
     >
-      <div className="max-w-4xl mx-auto flex flex-col items-center space-y-4 text-gray-600 text-sm">
+      <div className="max-w-4xl mx-auto flex flex-col items-center space-y-4 text-gray-600 text-sm ">
         <div className="font-semibold text-pink-600 text-lg select-none cursor-default">
           Calenara
         </div>
@@ -24,8 +24,8 @@ export default function Footer() {
           <a href="/Pricing" className="hover:text-pink-500 transition-colors">
             Pricing
           </a>
-          <a href="/Contact" className="hover:text-pink-500 transition-colors">
-            Contact
+          <a href="/Privacy" className="hover:text-pink-500 transition-colors">
+            Privacy & Policy
           </a>
         </nav>
 

@@ -17,13 +17,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../components/ui/dropdown-menu";
+import { CopyLinkMenuItem } from "../components/CopyLinkMenu";
 
 async function getData(id: string) {
   const data = await prisma.user.findUnique({
     where: { id },
     select: {
       EventType: {
-        select: { id: true, active: true, title: true, url: true, duration: true },
+        select: {
+          id: true,
+          active: true,
+          title: true,
+          url: true,
+          duration: true,
+        },
         orderBy: { createdAt: "desc" },
       },
       userName: true,
@@ -42,10 +49,17 @@ const DashbaordPage = async () => {
     <div className="bg-gradient-to-br from-pink-50 via-white to-blue-50  border border-dashed border-pink-200  rounded-2xl p-4">
       <div className="flex items-center justify-between mb-8 px-2">
         <div className="hidden sm:grid gap-1">
-          <h1 className="font-heading text-3xl md:text-4xl text-gray-800">Event Types</h1>
-          <p className="text-lg text-gray-600">Create and manage your event types.</p>
+          <h1 className="font-heading text-3xl md:text-4xl text-gray-800">
+            Event Types
+          </h1>
+          <p className="text-lg text-gray-600">
+            Create and manage your event types.
+          </p>
         </div>
-        <Button asChild className="bg-pink-500 hover:bg-pink-400 text-white mt-3">
+        <Button
+          asChild
+          className="bg-pink-500 hover:bg-pink-400 text-white mt-3"
+        >
           <Link href="/Dashboard/New">Create New Event</Link>
         </Button>
       </div>
@@ -82,7 +96,9 @@ const DashbaordPage = async () => {
                           <span>Preview</span>
                         </Link>
                       </DropdownMenuItem>
-                      
+                      <CopyLinkMenuItem
+                        meetingUrl={`${process.env.NEXT_PUBLIC_URL}/${data.userName}/${item.url}`}
+                      />
                       <DropdownMenuItem asChild>
                         <Link href={`/Dashboard/event/${item.id}`}>
                           <Pen className="mr-2 h-4 w-4" />
@@ -102,7 +118,7 @@ const DashbaordPage = async () => {
               </div>
 
               {/* Main Card Content */}
-              <Link href={`/dashboard/event/${item.id}`}>
+              <Link href={`/Dashboard/event/${item.id}`}>
                 <div className="p-6">
                   <div className="flex items-center space-x-4">
                     <Users2 className="h-6 w-6 text-blue-500" />
@@ -110,14 +126,16 @@ const DashbaordPage = async () => {
                       <p className="text-sm font-medium text-gray-600 truncate">
                         {item.duration} Minutes Meeting
                       </p>
-                      <h3 className="text-xl font-semibold text-gray-900">{item.title}</h3>
+                      <h3 className="text-xl font-semibold text-gray-900">
+                        {item.title}
+                      </h3>
                     </div>
                   </div>
                 </div>
               </Link>
 
               <div className="px-6 py-4 bg-pink-50 border-t border-gray-100 flex justify-between items-center">
-                <Link href={`/dashboard/event/${item.id}`}>
+                <Link href={`/Dashboard/event/${item.id}`}>
                   <Button className="bg-blue-200 hover:bg-blue-300 text-black">
                     Edit Event
                   </Button>

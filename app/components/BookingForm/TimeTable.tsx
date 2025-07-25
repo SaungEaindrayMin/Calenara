@@ -70,8 +70,7 @@ function calculateAvailableTimeSlots(
   date: string,
   duration: number
 ) {
-  const now = new Date(); 
-
+  const now = new Date();
 
   const availableFrom = parse(
     `${date} ${dbAvailability.fromTime}`,
@@ -89,7 +88,6 @@ function calculateAvailableTimeSlots(
     end: fromUnixTime(slot.endTime),
   }));
 
-
   const allSlots = [];
   let currentSlot = availableFrom;
   while (isBefore(currentSlot, availableTill)) {
@@ -97,7 +95,6 @@ function calculateAvailableTimeSlots(
     currentSlot = addMinutes(currentSlot, duration);
   }
 
- 
   const freeSlots = allSlots.filter((slot) => {
     const slotEnd = addMinutes(slot, duration);
     return (
@@ -110,7 +107,6 @@ function calculateAvailableTimeSlots(
       )
     );
   });
-
 
   return freeSlots.map((slot) => format(slot, "HH:mm"));
 }
@@ -152,7 +148,10 @@ export async function TimeTable({
               key={index}
               href={`?date=${format(selectedDate, "yyyy-MM-dd")}&time=${slot}`}
             >
-              <Button variant="outline" className="w-full mb-2">
+              <Button
+                variant="outline"
+                className="w-full mb-2 transition-colors duration-200 hover:bg-pink-100 hover:text-pink-700 focus:bg-pink-200 focus:text-pink-800"
+              >
                 {slot}
               </Button>
             </Link>

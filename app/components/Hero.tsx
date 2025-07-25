@@ -4,8 +4,8 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="container mt-[5%]">
-      <div className="flex flex-col items-center w-full mx-auto text-center bg-gradient-to-b from-white via-blue-100 to-pink-50 py-16 px-4">
+    <section className="container">
+      <div className="flex flex-col items-center w-full mx-auto text-center bg-gradient-to-b from-white via-blue-100 to-pink-50 py-[10%] px-4">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -56,7 +56,7 @@ export default function Hero() {
         >
           <Link
             href="/details"
-            className="px-5 py-2 rounded-full bg-pink-400 text-white font-medium hover:bg-pink-700 transition duration-300 shadow-md"
+            className="px-5 py-2 rounded-full bg-pink-600 text-white font-medium hover:bg-pink-700 transition duration-300 shadow-md"
           >
             More Details
           </Link>
