@@ -65,7 +65,7 @@ export function SettingsForm({ email, fullName, profileImage }: iAppProps) {
             <Input
               name={fields.fullName.name}
               key={fields.fullName.key}
-              placeholder="Jan Marshall"
+              placeholder="Your Full Name"
               defaultValue={fullName}
               className="border-pink-300 focus:ring-pink-400 focus:border-pink-400 bg-pink-100 text-pink-900 placeholder-pink-400 rounded-xl shadow-sm transition"
             />
@@ -76,7 +76,7 @@ export function SettingsForm({ email, fullName, profileImage }: iAppProps) {
             <Label className="text-pink-700 font-semibold">Email</Label>
             <Input
               disabled
-              placeholder="jan.marshall@example.com"
+              placeholder="youremail@example.com"
               defaultValue={email}
               className="border-pink-300 bg-pink-100 text-pink-700 rounded-xl shadow-inner"
             />

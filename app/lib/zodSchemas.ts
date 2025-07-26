@@ -37,14 +37,18 @@ export function onboardingSchema(options?: {
 
 export const onboardingSchemaLocale = z.object({
   userName: z
-    .string()
-    .min(3)
-    .max(150)
+    .string({ required_error: "Username required" })
+    .min(3, { message: "Username must be at least 3 characters" })
+    .max(150, { message: "Username must be at most 150 characters" })
     .regex(/^[a-zA-Z0-9-]+$/, {
       message: "Username must contain only letters, numbers, and hyphens",
     }),
-  fullName: z.string().min(3).max(150),
+  fullName: z
+    .string({ required_error: "Full Name required" })
+    .min(3, { message: "Full Name must be at least 3 characters" })
+    .max(150, { message: "Full Name must be at most 150 characters" }),
 });
+
 
 export const aboutSettingsSchema = z.object({
   fullName: z.string().min(3).max(150),
@@ -53,11 +57,28 @@ export const aboutSettingsSchema = z.object({
 });
 
 export const eventTypeSchema = z.object({
-  title: z.string().min(3).max(150),
-  duration: z.number().min(1).max(100),
-  url: z.string().min(3).max(150),
-  description: z.string().min(3).max(300),
-  videoCallSoftware: z.string(),
+  title: z
+    .string({ required_error: "Title required" })
+    .min(3, { message: "Title must be at least 3 characters" })
+    .max(150, { message: "Title must be at most 150 characters" }),
+
+  duration: z
+    .number({ required_error: "Duration required", invalid_type_error: "Duration must be a number" })
+    .min(1, { message: "Duration must be at least 1 minute" })
+    .max(100, { message: "Duration must be less than or equal to 100 minutes" }),
+
+  url: z
+    .string({ required_error: "URL required" })
+    .min(3, { message: "URL must be at least 3 characters" })
+    .max(150, { message: "URL must be at most 150 characters" }),
+
+  description: z
+    .string({ required_error: "Description required" })
+    .min(3, { message: "Description must be at least 3 characters" })
+    .max(300, { message: "Description must be at most 300 characters" }),
+
+  videoCallSoftware: z
+    .string({ required_error: "Video Call Software required" }),
 });
 
 

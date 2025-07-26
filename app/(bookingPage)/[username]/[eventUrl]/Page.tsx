@@ -12,7 +12,7 @@ import { BookMarked, CalendarX2, Clock, VideoIcon } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-async function getData(eventUrl: string, userName: string) {
+async function getData( userName: string,eventUrl: string,) {
   const data = await prisma.eventType.findFirst({
     where: {
       url: eventUrl,

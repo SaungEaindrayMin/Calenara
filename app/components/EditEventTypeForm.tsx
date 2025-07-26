@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useActionState, useState } from "react";
 import { useFormState } from "react-dom";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
@@ -51,7 +51,7 @@ export function EditEventTypeForm({
   callProvider,
   id,
 }: iAppProps) {
-  const [lastResult, action] = useFormState(EditEventTypeAction, undefined);
+  const [lastResult, action] = useActionState(EditEventTypeAction, undefined);
   const [form, fields] = useForm({
     lastResult,
     onValidate({ formData }) {
@@ -189,7 +189,7 @@ export function EditEventTypeForm({
 
           <CardFooter className="flex justify-between">
             <Button asChild variant="outline">
-              <Link href="/dashboard">Cancel</Link>
+              <Link href="/Dashboard">Cancel</Link>
             </Button>
             <SubmitButton
               text="Update Event Type"

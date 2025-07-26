@@ -91,7 +91,7 @@ export default async function PricingPage() {
             <CardFooter>
               <Button 
                 asChild 
-                className={`w-full ${plan.highlighted ? 'bg-pink-600 hover:bg-pink-700' : ''}`}
+                className={`w-full ${plan.highlighted ? 'bg-pink-600 hover:bg-pink-700 text-white' : ''}`}
               >
                 <Link href={plan.buttonLink}>{plan.buttonText}</Link>
               </Button>
