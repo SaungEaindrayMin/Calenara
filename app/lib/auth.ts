@@ -16,21 +16,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           select: { planId: true }
         });
 
-        if (!existingUser?.planId) {
-          // Find the free plan
-          const freePlan = await prisma.plan.findFirst({
-            where: { type: "FREE" }
-          });
+      //   if (!existingUser?.planId) {
+      //     // Find the free plan
+      //     const freePlan = await prisma.plan.findFirst({
+      //       where: { type: "FREE" }
+      //     });
 
-          if (freePlan) {
-            // Assign the free plan to the user
-            await prisma.user.update({
-              where: { id: user.id },
-              data: { planId: freePlan.id }
-            });
-          }
-        }
-      }
+      //     if (freePlan) {
+      //       // Assign the free plan to the user
+      //       await prisma.user.update({
+      //         where: { id: user.id },
+      //         data: { planId: freePlan.id }
+      //       });
+      //     }
+      //   }
+     }
       return true;
     },
   },

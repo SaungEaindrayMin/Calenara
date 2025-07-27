@@ -1,11 +1,10 @@
-const values = [
+export const values = [
   {
     title: "Integrity",
-    description:
-      "We operate with honesty and transparency in everything we do.",
+    description: "We operate with honesty and transparency in everything we do.",
     icon: (
       <svg
-        className="w-8 h-8 text-pink-500"
+        className="w-5 h-5 text-white"
         fill="none"
         stroke="currentColor"
         strokeWidth="2"
@@ -19,11 +18,10 @@ const values = [
   },
   {
     title: "Innovation",
-    description:
-      "We constantly seek creative solutions and embrace new ideas.",
+    description: "We constantly seek creative solutions and embrace new ideas.",
     icon: (
       <svg
-        className="w-8 h-8 text-pink-500"
+        className="w-5 h-5 text-white"
         fill="none"
         stroke="currentColor"
         strokeWidth="2"
@@ -38,11 +36,10 @@ const values = [
   },
   {
     title: "Customer-first",
-    description:
-      "Our users’ success is our success. We listen and adapt quickly.",
+    description: "Our users’ success is our success. We listen and adapt quickly.",
     icon: (
       <svg
-        className="w-8 h-8 text-pink-500"
+        className="w-5 h-5 text-white"
         fill="none"
         stroke="currentColor"
         strokeWidth="2"
@@ -57,24 +54,46 @@ const values = [
     ),
   },
 ];
-
 export function CoreValues() {
   return (
-    <section className="max-w-6xl mx-auto px-6 py-12">
-      <h2 className="text-4xl font-bold text-pink-600 mb-10 text-center">
-        Our Core Values
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {values.map(({ title, description, icon }) => (
-          <article
-            key={title}
-            className="bg-pink-50 rounded-lg p-6 shadow-md flex flex-col items-center text-center"
-          >
-            <div className="mb-4">{icon}</div>
-            <h3 className="text-xl font-semibold text-pink-800 mb-2">{title}</h3>
-            <p className="text-pink-600">{description}</p>
-          </article>
-        ))}
+    <section className=" py-24 px-6">
+      <div className="max-w-6xl mx-auto text-center">
+        <h2 className="text-4xl md:text-5xl font-bold text-pink-600">
+          Unveiling Our Core Values
+        </h2>
+        <p className="text-gray-400 mt-4 text-lg max-w-2xl mx-auto ">
+          We're committed to values that shape our decisions, drive innovation, and deliver excellence in everything we do.
+        </p>
+
+        {/* Green horizontal card with icons */}
+        <div className="mt-16 bg-gradient-to-br from-pink-100 via-white to-blue-100 rounded-2xl p-10 border border-pink-200">
+          <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 gap-10 text-pink-500">
+            {values.map(({ title, icon }) => (
+              <div
+                key={title}
+                className="flex flex-col items-center justify-center text-center"
+              >
+                <div className="w-14 h-14 mb-4 rounded-full bg-blue-200 bg-opacity-20 flex items-center justify-center">
+                  {icon}
+                </div>
+                <h4 className="text-lg font-semibold">{title}</h4>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Optional: Full descriptions below */}
+        <div className="mt-16 grid md:grid-cols-3 gap-8 text-left">
+          {values.map(({ title, description }) => (
+            <div
+              key={title}
+              className="bg-white p-6 rounded-xl shadow-sm border border-pink-200"
+            >
+              <h5 className="text-md font-bold text-pink-500">{title}</h5>
+              <p className="mt-2 text-gray-600">{description}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

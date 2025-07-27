@@ -25,7 +25,7 @@ export default function PlanRequired() {
           </p>
         </CardContent>
         <CardFooter className="flex flex-col space-y-3">
-          <Button asChild className="w-full bg-pink-600 hover:bg-pink-700">
+          <Button asChild className="w-full bg-pink-600 hover:bg-pink-700 text-white">
             <Link href="/Pricing">View Pricing Plans</Link>
           </Button>
           <Button asChild variant="outline" className="w-full">

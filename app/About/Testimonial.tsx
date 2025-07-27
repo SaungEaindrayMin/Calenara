@@ -10,13 +10,13 @@ type TestimonialProps = {
 export function TestimonialList() {
   const testimonials: TestimonialProps[] = [
     {
-      name: "Jan",
+      name: "Saung",
       role: "Programmer | YouTuber",
       message:
         "Wow Calenara is the best platform I have ever used. Definitely recommend it to you guys, try it out!",
     },
     {
-      name: "Samantha Lee",
+      name: "Ruri",
       role: "Product Manager",
       message:
         "Using Calenara helped our team improve collaboration and deliver projects faster. Highly recommended!",
@@ -53,7 +53,7 @@ function TestimonialHeader() {
       <h2 className="text-4xl font-extrabold text-pink-600 mb-4">
         What Our Users Say
       </h2>
-      <p className="text-lg text-pink-400">
+      <p className="text-lg text-gray-400">
         Hear directly from our amazing community and how CalMarshal has
         transformed their workflow.
       </p>
